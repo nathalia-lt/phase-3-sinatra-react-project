@@ -10,4 +10,11 @@ class Player < ActiveRecord::Base
             score.delete
         end
     end
+
+    def player_scores
+        Player.all.map do | name |
+            name 
+        end
+    end
+
 end

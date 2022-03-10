@@ -2,12 +2,24 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
-  get "/" do
-    "Enter your name; Start playing"
+  # get "/" do
+  #   "Enter your name; Start playing"
+  # end
+
+  # get '/game' do
+  #   "Hello Game"
+  # end
+
+  get '/test' do
+    Score.player_scores
   end
 
-  get '/game' do
-    "Hello Game"
+  #BASIC routes
+
+  get '/player' do
+    player = Player.all
+    player.to_json
+
   end
 
   get '/getHighScores' do
@@ -31,23 +43,27 @@ class ApplicationController < Sinatra::Base
   end
 
   #ID routes
-  get ‘/player’ do
+
+  get '/player' do
     Player.find(params[:id]).to_json
   end
 
-  get ‘/scores’ do
+  get '/scores' do
     Scores.finc(params[:id]).to_json
   end
 
-  #DELETE ALL
-  delete ‘/scores/:id’ do
+  #DELETE ALL 
+
+ 
+  delete '/scores/:id' do
     scores = Scores.find(params[:id])
-    scores.destroy
+    scores.destroy 
     scores.to_json
-  end
+  end 
 
   #POST
-  post ‘/player’ do
+
+  post '/player' do  
     player = Player.create(
       player_name: params[:player_name],
       scores: params[:scores]
@@ -55,7 +71,7 @@ class ApplicationController < Sinatra::Base
     game.to_json
   end
 
-  post ‘/score’ do
+  post '/score' do  
     scores = Scores.create(
       scores: params[:scores]
     )
