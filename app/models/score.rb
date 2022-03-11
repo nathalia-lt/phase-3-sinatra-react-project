@@ -12,14 +12,19 @@ class Score < ActiveRecord::Base
     end
 
     def self.player_scores
-        player_scores = []
-        Score.all.each do |score|
-            player_scores << {
-                player_name: score.player.name,
-                player_score: score.score
-            }
+
+        Score.order(score: :desc).map do |score|
+            [['player_name', score.player.name], ['score', score.score]].to_h
         end
-        player_scores.sort_by{ |k| k[:player_score]}.reverse.to_json
+
+        # player_scores = []
+        # Score.all.each do |score|
+        #     player_scores << {
+        #         player_name: score.player.name,
+        #         player_score: score.score
+        #     }
+        # end
+        # player_scores.sort_by{ |k| k[:player_score]}.reverse.to_json
     end
 
     def self.top_three_scores_details

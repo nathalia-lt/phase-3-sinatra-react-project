@@ -22,7 +22,12 @@ class ApplicationController < Sinatra::Base
 
   end
 
-  get '/getHighScores' do
+  get '/scores/all' do
+    scores_sorted = Score.player_scores
+    scores_sorted.to_json
+  end
+
+  get '/scores/top' do
     top_three_scores = Score.top_three_scores
     top_three_scores.to_json
   end
@@ -63,19 +68,13 @@ class ApplicationController < Sinatra::Base
 
   #POST
 
-  post '/player' do  
-    player = Player.create(
-      player_name: params[:player_name],
-      scores: params[:scores]
+  post '/scores' do  
+    score = Score.create(
+      score: params[:score],
+      created_at: params[:created_at],
+      player_id: params[:player_id]
     )
-    game.to_json
-  end
-
-  post '/score' do  
-    scores = Scores.create(
-      scores: params[:scores]
-    )
-    game.to_json
+    score.to_json
   end
 
 end
