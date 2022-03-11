@@ -27,17 +27,17 @@ class ApplicationController < Sinatra::Base
     top_three_scores.to_json
   end
 
-  get ‘/test’ do
+  get '/test' do
     Score.player_scores
   end
   
   #BASIC routes
-  get ‘/player’ do
+  get '/player' do
     player = Player.all
     player.to_json
   end
 
-  get ‘/scores’ do
+  get '/scores' do
     score = Score.all
     score.to_json
   end
