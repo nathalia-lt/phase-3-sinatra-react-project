@@ -68,13 +68,11 @@ class ApplicationController < Sinatra::Base
 
   #POST
 
-  post '/scores' do  
+  post '/scores' do
     score = Score.create(
       score: params[:score],
-      created_at: params[:created_at],
       player_id: params[:player_id]
     )
     score.to_json
   end
-
 end
